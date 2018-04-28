@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2 col-sm-12 analyze-result">
+    <div class="col-lg-12 text-center">
+      <img src="<%= imageUrl %>">
+    </div>
+
+    <div class="col-lg-6 col-sm-12 tags">
+    <h3>Found these tags:</h3>
+      <ul>
+        <% tags.forEach(function(tag) { %>
+          <li><%= tag.name %> (Confidence: <%= tag.confidence * 100 %>)</li>
+        <% }); %>
+      </ul>
+    </div>
+
+    <div class="col-lg-6 col-sm-12 people">
+    <h3><%= faces.length %> people (right - left):</h3>
+      
+        <% faces.forEach(function(face) { %>
+          <h5>Person</h5>
+          <ul>
+            <li>Age: <%= face.age %></li>
+            <li>Gender: <%= face.gender %></li>
+          </ul>
+        <% }); %>
+      
+      
+    </div>
+
+  </div>
+</div>
+
+<% include ../partials/footer %>

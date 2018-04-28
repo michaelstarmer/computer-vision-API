@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+
+<div class="col-lg-12 text-center"><h1>Analyze image</h1></div>
+
+<div class="col-lg-12 analyze">
+
+  <form action="/api/computer-vision" method="post">
+      <div class="form-group">
+        <label for="imageURL">Image URL</label>
+        <input type="text" name="imageUrl" class="form-control" id="imageUrl" aria-describedby="imageUrlHelp" placeholder="Enter image url...">
+      </div>
+    <button type="submit" class="btn btn-primary">Analyze</button>
+  </form>
+
+</div>
+
+<% include ../partials/footer %>

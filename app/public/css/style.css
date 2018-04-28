@@ -5,3 +5,52 @@
 .searchform {
     margin-top: 40px;
 }
+
+.header {
+    background: #b2bec3;
+    text-align: center;
+    padding: 2em 0;
+}
+
+.indexmenu {
+    height: 50vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.indexmenu .btn-container {
+    margin: 0 auto;
+}
+
+.indexmenu .btn-container a {
+    display: block;
+    margin-bottom: 2em
+}
+
+.indexmenu .btn-container .btn {
+    padding: 1em 1em
+}
+
+.analyze {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+}
+
+.analyze form {
+  margin: 0 auto;
+  width: 70%;
+  font-size: 20px;
+}
+
+.analyze form input[type=text] {
+  padding: 20px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+.analyze-result {
+  padding-top: 3em;
+}
