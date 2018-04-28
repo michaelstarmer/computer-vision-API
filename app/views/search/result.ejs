@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 center">
+        
+        <% movies.forEach(function(movie) { %>
+
+            <div class="panel panel-default">
+            <!-- Default panel contents -->
+                <div class="panel-heading"><%= movie.title %></div>
+                
+                <div class="panel-body">
+                    <p>...</p>
+                </div>
+            
+                <!-- Table -->
+                <table class="table">
+                ...
+                </table>
+            </div>
+        
+        <% }); %>
+
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+
+
+

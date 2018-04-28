@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+
+  node_db:
+    image: mysql:5.7
+    container_name: tango_sql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    logging:
+      driver: "none"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: tango_phpmyadmin
+    links:
+      - "node_db:mysql"
+    ports:
+     - "8181:80"
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: node_db
+    depends_on:
+      - node_db
+    logging:
+      driver: "none"
+
+  node:
+    build: ./app
+    container_name: tango_node
+    volumes:
+      - "./app:/app"
+
+    ports: 
+      - "8080:8080"
