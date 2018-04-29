@@ -54,3 +54,17 @@
 .analyze-result {
   padding-top: 3em;
 }
+
+.loginform {
+  margin-top: 4em;
+  height: 60vh;
+}
+
+.loginform form {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 30px 50px;
+  border-radius: 10px;
+  border: 1px solid black;
+}

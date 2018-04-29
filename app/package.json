@@ -10,11 +10,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^3.3.3",
+    "dotenv": "^5.0.1",
     "ejs": "^2.5.8",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "microsoft-computer-vision": "^0.3.3",
+    "morgan": "^1.9.0",
     "mysql": "^2.15.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5"
   }

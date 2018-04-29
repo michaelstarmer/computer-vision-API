@@ -57,7 +57,8 @@ app.post('/computer-vision', async (req, res) => {
         "url": imageUrl,
         "visual-features": "Tags, Faces"
     }).then((result) => {
-        //console.log(result);
+        console.log(result);
+
         const tags = result.tags;
         const faces = result.faces;
         console.log("TAGS: ", tags);
