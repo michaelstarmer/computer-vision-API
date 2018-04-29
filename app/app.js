@@ -36,9 +36,9 @@ const api = require("./modules/index");
 const auth = require("./modules/auth");
 
 app.use('/auth', auth);
-app.use('/api', isLoggedIn, api);
+app.use('/api', api);
 
-app.get('/', isLoggedIn, (req, res) => {
+app.get('/', (req, res) => {
   res.render('index');
 });
 

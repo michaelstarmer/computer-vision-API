@@ -2,6 +2,10 @@
     text-align: center;
 }
 
+img {
+  max-width: 500px;
+}
+
 .searchform {
     margin-top: 40px;
 }
@@ -67,4 +71,21 @@
   padding: 30px 50px;
   border-radius: 10px;
   border: 1px solid black;
+}
+
+/*
+* ANALYZE TEXT RESULT
+*/
+.analyze-text-result {
+
+}
+
+.analyze-text-result .output h3 {
+  text-align: center;
+}
+
+.analyze-text-result .output {
+  border: 1px solid black;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }

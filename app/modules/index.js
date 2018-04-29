@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const microsoftComputerVision = require("microsoft-computer-vision");
 
+require('dotenv').config();
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -49,30 +51,103 @@ app.post('/computer-vision', async (req, res) => {
     
     const imageUrl = req.body.imageUrl;
     console.log("Image url:", imageUrl);
+    
+    const choice = req.body.optradio;
 
-    microsoftComputerVision.analyzeImage({
-        "Ocp-Apim-Subscription-Key": key1CV,
+    if(choice == "1") {
+      console.log("Selected FIND PEOPLE AND TAGS.");
+
+      microsoftComputerVision.analyzeImage({
+        "Ocp-Apim-Subscription-Key": process.env.MS_API_1,
         "request-origin": "westcentralus",
         "content-type": "application/json",
         "url": imageUrl,
         "visual-features": "Tags, Faces"
-    }).then((result) => {
-        console.log(result);
+      }).then((result) => {
+          console.log(result);
 
-        const tags = result.tags;
-        const faces = result.faces;
-        console.log("TAGS: ", tags);
-        console.log("FACES:",faces);
+          const tags = result.tags;
+          const faces = result.faces;
+          console.log("TAGS: ", tags);
+          console.log("FACES:",faces);
 
-        res.render("computer-vision/result", {
-          imageUrl: imageUrl,
-          tags: tags,
-          faces: faces,
+          res.render("computer-vision/result", {
+            imageUrl: imageUrl,
+            tags: tags,
+            faces: faces,
+          });
+
+      }).catch((err) => {
+          throw err;
+      });
+
+    } else if(choice == "2") {
+      microsoftComputerVision.describeImage({
+        "Ocp-Apim-Subscription-Key": process.env.MS_API_1,
+        "request-origin": "westcentralus",
+        "max-candidates": "1",
+        "content-type": "application/json",
+        "url": imageUrl,
+      }).then((result) => {
+        let tags = result.description.tags;
+        let captions = result.description.captions;
+        console.log("DESCRIBED IMAGE:",result);
+        console.log("\nTAGS:",tags);
+        console.log("\nCAPTIONS:",captions);
+      }).catch((err) => {
+        console.log("Error analyzing image.",err);
+      });
+    } else if(choice == "3") {
+      console.log("ANALYZING TEXT IN IMAGE.");
+      microsoftComputerVision.orcImage({
+        "Ocp-Apim-Subscription-Key": process.env.MS_API_1,
+        "request-origin": "westcentralus",
+        "language": "en",
+        "content-type": "application/json",
+        "detect-orientation": true,
+        "url": imageUrl,
+      }).then((result) => {
+        console.log("\n\nRESULT FROM TEXT ANALYZER:");
+
+        
+        console.log(result.regions[0]);
+        const obj = result.regions[0].lines;
+
+        // Will get an array for every line
+        const getlines = obj.map(it => it.words);
+        console.log("\nLINES", getlines);
+        console.log("\nNUMBER OF LINES:",getlines.length);
+
+        let lines = []
+        let stringLines = []
+
+        // Go through every array. For every array (line),
+        // push the line array to separate array.
+        getlines.forEach(singleLine => {
+          let text = singleLine.map(it => it.text);
+          console.log("Got text:",text);
+          lines.push(text.join(" "));
         });
 
-    }).catch((err) => {
-        throw err;
-    });
+        let separateLines = lines;
+
+        // Array of arrays. Each array consists of all the strings on the line.
+        console.log("LINES ARRAY:", lines);
+        let formattedText = lines.join("\n");
+
+
+        /* console.log("\n\n-- Format in view --");
+        for(let l = 0; l < lines.length; l++) {
+          stringLines.push(lines[l].join());
+        } */
+
+        res.render("computer-vision/result-text", {lines: formattedText, separateLines: separateLines, imageUrl: imageUrl});
+
+      }).catch((err) => {
+        console.log("Error analyzing image.",err);
+      });
+    }
+
 });
 
 app.get('/analyze', async (req, res) => {
